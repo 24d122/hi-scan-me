@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Love Letter 💌</title>
+<style>
+  body {
+    font-family: 'Cursive', Arial;
+    background: #ffe6e6;
+    text-align: center;
+    padding: 50px;
+    color: #800000;
+  }
+  h1 { font-size: 2em; }
+  input[type="text"] {
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    border: 2px solid #ff8080;
+    margin: 20px 0;
+    width: 250px;
+  }
+  .option {
+    display: inline-block;
+    background: #fff0f0;
+    border: 2px solid #ff8080;
+    padding: 20px;
+    margin: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+    width: 200px;
+  }
+  .option:hover {
+    transform: scale(1.05);
+    background: #ffd6d6;
+  }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<h1>💖 Hey there! 💖</h1>
+<p>Enter your name to start:</p>
+<input type="text" id="username" placeholder="Your Name">
+<button onclick="startLove()">Start 💌</button>
+
+<div id="options" class="hidden">
+  <h2>Choose a letter:</h2>
+  <div class="option" onclick="chooseOption(1)">💌 Option 1</div>
+  <div class="option" onclick="chooseOption(2)">💌 Option 2</div>
+  <div class="option" onclick="chooseOption(3)">💌 Option 3</div>
+</div>
+
+<div id="message" class="hidden">
+  <h2 id="msgTitle"></h2>
+  <p id="quote"></p>
+</div>
+
+<script>
+let visitorName = "";
+
+function startLove() {
+  visitorName = document.getElementById('username').value.trim();
+  if(visitorName === "") {
+    alert("Please enter your name! 💖");
+    return;
+  }
+  document.getElementById('username').style.display = 'none';
+  event.target.style.display = 'none';
+  document.getElementById('options').classList.remove('hidden');
+}
+
+function chooseOption(opt) {
+  document.getElementById('options').classList.add('hidden');
+  let msgTitle = "";
+  let quote = "";
+  if(opt === 1){
+    msgTitle = "I love you di Chello 💖";
+    quote = "You are a special one to me so don't worry, no one can replace you!";
+  } else if(opt === 2){
+    msgTitle = "Hi di Pattu Ma 😄";
+    quote = "Enna pandra? Saptiya? Nala healthyaa sapudu!!";
+  } else {
+    msgTitle = "I hate you 😜";
+    quote = "Ipadi nan sonna nee ennaku romba special theriuma!";
+  }
+  document.getElementById('msgTitle').innerText = msgTitle;
+  document.getElementById('quote').innerText = quote;
+  document.getElementById('message').classList.remove('hidden');
+
+  // Notification (we’ll connect to Google Sheet next)
+  sendNotification(visitorName, opt);
+}
+
+// Temporary console notification
+function sendNotification(name, choice){
+  console.log("Visitor Name:", name, "Selected Option:", choice);
+}
+</script>
+
+</body>
+</html>
